@@ -1,40 +1,69 @@
-import { GridBox, VerticalBox } from "std-widgets.slint";
+import { GridBox, VerticalBox, TabWidget, TextEdit, ComboBox } from "std-widgets.slint";
+
 component Button inherits Rectangle {
-    width: 72px;
-    height: 32px;
+    callback clicked;
+    in-out property <float> value;
+    in property <int> text;
+
+    height: 40px;
+    width: 75px;
+    background: lightslategray;
     border-radius: 4px;
-    background: lightgrey;
-    
+
+    TouchArea {
+        clicked => {
+            root.clicked();
+            value = text;
+        }
+    }
 }
-
-
-component TextEdit inherits Rectangle{
-    width: 350px;
-    height: 240px;
-    background: lightgray;
-    border-radius: 4px;
-}
-
 
 export component MainWindow inherits Window {
     width: 500px;
     height: 500px;
 
-    Rectangle {
-        VerticalLayout {
-            alignment: start;
-            TextEdit {}
-            GridBox {
+    TabWidget {
+        Tab {
+            title: "Simple Kalculator";
+
+            TextEdit {
+
+                width: 250px;
+                height: 250px;
+
+                read-only: true;
+                text: button1.value;
+            }
+
+            GridLayout {
                 button1 := Button{
+                    out property <int> c;
                     Text {
                         text: 1;
                     }
                 }
             }
         }
-
+        Tab{
+            title: "Settings";
+            GridBox {
+                TextEdit {
+                    height: 40px;
+                    font-size: 14px;
+                    read-only: true;
+                    text: "Current Theme: ";
+                    row: 0;
+                    col: 0;
+                }
+                ComboBox {
+                    width: 100px;
+                    height: 40px;
+                    model: ["light", "dark"];
+                    current-value: "light";
+                    row: 0;
+                    col: 1;
+                }
+            }
+        }
     }
-    
-
-
 }
