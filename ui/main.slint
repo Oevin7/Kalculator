@@ -1,0 +1,40 @@
+import { GridBox, VerticalBox } from "std-widgets.slint";
+component Button inherits Rectangle {
+    width: 72px;
+    height: 32px;
+    border-radius: 4px;
+    background: lightgrey;
+    
+}
+
+
+component TextEdit inherits Rectangle{
+    width: 350px;
+    height: 240px;
+    background: lightgray;
+    border-radius: 4px;
+}
+
+
+export component MainWindow inherits Window {
+    width: 500px;
+    height: 500px;
+
+    Rectangle {
+        VerticalLayout {
+            alignment: start;
+            TextEdit {}
+            GridBox {
+                button1 := Button{
+                    Text {
+                        text: 1;
+                    }
+                }
+            }
+        }
+
+    }
+    
+
+
+}
